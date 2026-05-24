@@ -1,0 +1,42 @@
+/* :root {
+  --personal: #ec4899;
+  --work: #3b82f6;
+  --study: #27da69;
+  --ideas: #b567fd;
+  --todo: #f5d20b;
+  --others: #64748b;
+} */
+:root {
+    --personal: #ec4899;
+  --work: #3b82f6;
+  --study: #27da69;
+  --ideas: #b567fd;
+  --todo: #f5d20b;
+  --custom: #dec49a;
+  --uncategorised:rgb(208, 27, 27);
+
+  --personalLight: #ec4899;
+  --workLight: #6695e0;
+  --studyLight: #51c47b;
+  --ideasLight: #985fce;
+  --todoLight: #d5c87d;
+  --customLight: #c5b295;
+  --draftsLight:white;
+  --uncategorisedLight:rgb(249, 136, 136);
+}
+/* .light {
+  --personal: #fce7f3;
+  --work: #dbeafe;
+  --study: #dcfce7;
+  --ideas: #f3e8ff;
+  --todo: #fef3c7;
+  --others: #e2e8f0;
+} */
+/* @layer utilities {
+  .cat-personal { background-color: var(--personal); }
+  .cat-work { background-color: var(--work); }
+  .cat-study { background-color: var(--study); }
+  .cat-ideas { background-color: var(--ideas); }
+  .cat-todo { background-color: var(--todo); }
+  .cat-others { background-color: var(--others); }
+} */

@@ -1,0 +1,92 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+.outerDiv{
+    @apply h-screen bg-[#000000b3] w-full flex justify-center
+     items-center fixed inset-0 z-300  ;
+    backdrop-filter: blur(4px);
+    
+    .innerDiv{
+        @apply h-fit w-[90%] max-w-md dark:bg-gray-800 bg-gray-100  
+        rounded-lg flex flex-col justify-center items-center 
+        p-4 py-6 ;
+        will-change: transform,opacity;
+       
+        .icon{
+            @apply text-6xl mb-3 bg-red-200 p-3 rounded-full;
+            &.danger{
+                @apply text-red-700;
+            }
+            &.warning{
+              @apply  text-gray-700 bg-amber-400;
+            }
+        }
+        h1{
+            @apply text-xl font-semibold  mb-2;
+        }
+        p{
+            @apply text-[1rem] pb-2 text-center text-gray-600 dark:text-gray-400;
+        }
+        .actions{
+            @apply flex   w-full gap-2 justify-center ;
+            button{
+            @apply   px-4 py-2 rounded-sm transition-all duration-200;
+            &.cancel {
+            @apply text-gray-700 dark:text-gray-300 border border-gray-400 hover:bg-white dark:hover:text-black;
+            }
+
+            &.danger {
+            @apply bg-red-700 text-white hover:bg-red-600;
+            }
+            &.warning{
+              @apply bg-amber-500 text-gray-800 hover:bg-amber-400;
+            }
+            }
+        }
+        
+   
+    }
+    
+    
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+.fadeIn{
+    animation: fadeIn 0.2s ease-out;
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+}
+
+.fadeOut {
+  animation: fadeOut 0.2s ease forwards;
+}
+
+@keyframes shake {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-6px, -3px); }
+  40%  { transform: translate(6px, 3px); }
+  60%  { transform: translate(-4px, 2px); }
+  80%  { transform: translate(4px, -2px); }
+  100% { transform: translate(0, 0); }
+}
+
+.shake {
+  animation: shake 0.4s ease;
+}

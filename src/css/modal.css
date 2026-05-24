@@ -1,0 +1,178 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+  
+.modalOuter{
+    @apply flex justify-center items-center bg-[#000000bf]  ;
+    width: 100%;
+    height: 100dvh;
+    /* background-color: #000000bf; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index:100;
+    backdrop-filter: blur(3px);
+
+    .modalInner{
+        @apply dark:bg-[#111827] w-[90%]  bg-gray-200 md:w-[70%] lg:w-[50%] 
+        flex flex-col rounded-xl shadow-2xl p-6 h-fit ;
+        position:relative;
+        animation: fadeIn .25s ease;
+
+        .closeModal{
+            @apply bg-red-600 text-white rounded-full 
+            w-[32px] h-8 text-sm 
+            flex justify-center items-center 
+            hover:bg-gray-600 transition;
+            position: absolute;
+            right:15px;
+            top:15px;
+        }
+        .modalHeader{
+ @apply flex justify-between items-center;
+ h2{
+    @apply text-2xl font-semibold;
+ }
+}
+
+.closeModal{
+ @apply dark:bg-gray-700 dark:text-white bg-white text-gray-700 rounded-full 
+ w-[32px] h-[32px] text-sm 
+ flex justify-center items-center 
+ hover:bg-gray-600 transition;
+ position: static;
+}
+        form{
+            @apply flex flex-col gap-4 mt-4 ;
+
+            .inputFirstRow{
+                @apply   flex gap-3 items-center;
+                .selectAndImp{
+                    @apply flex items-center gap-3;
+                }
+            }
+
+            input{
+                @apply flex-1 text-[1rem] border border-gray-600 
+                rounded-md px-3 py-2 
+                dark:bg-[#020617] bg-white dark:text-white  text-black
+                focus:outline-none focus:ring-2 
+                focus:ring-amber-500;
+                
+                &::placeholder{
+                    @apply opacity-60;
+                }
+            }
+            .imp{
+                @apply text-2xl ;
+                transition:all .2s ease-in-out;
+            input[type="checkbox"]
+            {
+                display: none;
+                 
+            }
+             label{
+                font-size: 2rem;
+                
+            }
+      
+            &:hover{
+                transform: scale(1.1);
+                
+            }
+         
+
+            }
+           
+          
+            
+            select{
+                @apply dark:bg-[#020617] border border-gray-600  bg-white dark:text-white  text-black
+                rounded-md px-2 py-2 
+                 w-[30%] 
+                focus:outline-none focus:ring-2 
+                focus:ring-amber-500;
+
+                option{
+                    @apply dark:bg-gray-800 bg-white border-none outline-none;
+                     
+                }
+            }
+
+            textarea{
+                @apply min-h-[200px] h-[250px] border border-gray-600 
+                rounded-lg p-3 
+                dark:bg-[#020617] bg-white dark:text-white  text-black
+                resize-none 
+                focus:outline-none focus:ring-2 
+                focus:ring-amber-500;
+
+                &::placeholder{
+                    @apply opacity-60;
+                }
+            }
+
+            .btns{
+                @apply flex justify-end gap-3 mt-2;
+
+                button{
+                    @apply px-4 py-2 rounded-md font-medium 
+                    transition duration-200;
+                }
+
+                .submit,.save{
+                    @apply bg-amber-500 text-black 
+                    hover:bg-amber-400;
+                }
+                .disable{
+                    cursor:not-allowed;
+                    opacity: 0.7;
+                    transform:scale(.9);
+                    background-color: oklch(76.9% 0.188 70.08);
+                }
+                .cancel{
+                    @apply bg-gray-700 text-white 
+                    hover:bg-gray-600;
+                }
+            }
+        }
+    }
+}
+
+@keyframes fadeIn{
+    from{
+        transform: translateY(10px);
+        opacity:0;
+    }
+    to{
+        transform: translateY(0);
+        opacity:1;
+    }
+}
+
+ @media (max-width:500px){
+    .inputFirstRow{
+        @apply flex-col ;
+        input{
+            @apply w-full;
+        }
+        .selectAndImp{
+            @apply w-full flex  flex-1 justify-start;
+            .selectCategory{
+                @apply w-full flex flex-1 gap-1;
+                select{
+                    @apply w-full;
+                    &.customSelect{
+                        @apply w-fit;
+                    }
+                }
+                input{
+                    @apply w-full;
+                }
+
+                
+            }
+           
+        }
+       
+    }
+ }

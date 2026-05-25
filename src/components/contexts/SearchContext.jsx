@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { noteContext } from './NoteContext'
-import SearchModal from '../searchModal'
+import SearchModal from '../SearchModal'
 import { uicontext } from './UIContext'
 import { useNavigate } from 'react-router'
 

@@ -3,7 +3,7 @@ import '../css/nav.css'
 import { GoMoon } from "react-icons/go";
 import { IoSunnyOutline } from "react-icons/io5";
 import { noteContext } from './contexts/NoteContext';
-import SearchModal from './searchModal';
+import SearchModal from './SearchModal';
 import { searchContext } from './contexts/SearchContext';
 import { uicontext } from './contexts/UIContext';
 

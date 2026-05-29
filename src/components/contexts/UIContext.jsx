@@ -74,8 +74,8 @@ const UIContext = (props) => {
     }
     let handleTheme=()=>{
     const rootEle=document.documentElement.classList;
-    console.log(rootEle)
-    if(rootEle.contains("dark"))
+     
+         if(rootEle.contains("dark"))
     {
         rootEle.remove('dark')
         setTheme('')
@@ -85,7 +85,6 @@ const UIContext = (props) => {
         rootEle.add('dark')
         setTheme('dark')
     }
-     
     }
 
  

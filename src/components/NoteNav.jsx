@@ -6,6 +6,8 @@ import { noteContext } from './contexts/NoteContext';
 import SearchModal from './SearchModal';
 import { searchContext } from './contexts/SearchContext';
 import { uicontext } from './contexts/UIContext';
+import { IoIosSearch } from "react-icons/io";
+
 
 const NoteNav = () => {
   // let data=useContext(noteContext)
@@ -16,20 +18,39 @@ const NoteNav = () => {
    // let {searchmodal}=searchData
 
   return (<>
-    <nav>
-      <h2>SmartNotes Manager</h2>
-      <div className='searchField' onClick={handleSearchModal}>
-        <input type="search" 
-        name="search" 
-       placeholder='Search Notes' />
- 
-      </div>
-      <div className="theme" onClick={handleTheme}>
-        {/* <GoMoon /> */}
-        {theme=='dark'?<IoSunnyOutline />:<GoMoon />}
+   <nav>
+  <h2>SmartNotes Manager</h2>
 
-      </div>
-    </nav>
+  <div className='searchField'>
+    <input
+      type="search"
+      placeholder='Search Notes'
+      onClick={handleSearchModal}
+      readOnly
+    />
+  </div>
+
+  <div className='rightActions'>
+
+    <div
+      className='searchIcon'
+      onClick={handleSearchModal}
+    >
+      <IoIosSearch />
+    </div>
+
+    <div
+      className="theme"
+      onClick={handleTheme}
+    >
+      {theme === 'dark'
+        ? <IoSunnyOutline />
+        : <GoMoon />
+      }
+    </div>
+
+  </div>
+</nav>
      {searchmodal && <SearchModal/>}
     </>
   )

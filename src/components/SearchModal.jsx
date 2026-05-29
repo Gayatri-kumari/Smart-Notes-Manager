@@ -66,7 +66,7 @@ return createPortal(
                         <p className="desc">{v.description.slice(0, 40)}</p>
                       </div>
                       <div className='close'>
-                      <button onClick={()=>
+                      <button onClick={(e)=>
                         {
                           e.stopPropagation()
                           removeFromRecent(v.id)

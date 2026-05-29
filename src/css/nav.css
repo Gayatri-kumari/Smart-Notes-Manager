@@ -1,19 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&display=swap');
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
+ 
+
 
 nav{
-    @apply flex bg-transparent items-center w-full p-2.5 pt-5;
-     
+    @apply flex   items-center   
+    w-full px-4 lg:px-8 pt-4 pb-2;
+
     h2{
-       @apply text-[18px] w-[30%] dark:text-gray-200 text-black ml-2.5;
-    } 
+        @apply text-[15px] md:text-[18px]
+        dark:text-gray-300 text-gray-700
+        shrink-0  
+        ;
+        font-family: "Playpen Sans", cursive;
+    }
+
     .searchField{
-        @apply flex gap-4 w-[50%] ;
+        @apply hidden md:flex 
+        flex-1    mx-6;
+
         input{
-            @apply border border-gray-400 px-3 w-full py-1 rounded-md;
+            @apply  w-full max-w-xl py-2 px-4 rounded-md
+            border border-gray-400
+            dark:border-gray-700
+            bg-transparent dark:bg-gray-950
+            outline-none
+            focus:ring-2 focus:ring-amber-500;
         }
     }
+
+    .rightActions{
+        @apply flex  items-center gap-3 ml-auto;
+    }
+
+    .searchIcon{
+        @apply md:hidden text-3xl
+        text-gray-700 dark:text-gray-300
+        cursor-pointer transition;
+
+        &:hover{
+            @apply scale-110;
+        }
+    }
+
     .theme{
-        @apply text-center w-[20%] flex justify-center text-2xl;
+        @apply text-3xl
+        text-gray-700 dark:text-gray-300
+        cursor-pointer transition    ;
+
+        &:hover{
+            @apply scale-110;
+        }
     }
 }
+
+/* nav{
+    @apply flex bg-transparent items-center w-full  px-2 lg:px-8 pt-5;
+     
+    h2{
+       @apply  text-[16px] md:text-[18px] w-[30%] md:w-fit md:mr-6 mr-3 dark:text-gray-300 text-black md:ml-2.5 ml-1.5  ;
+       font-family: "Playpen Sans", cursive;
+        
+    } 
+    .searchField{
+        @apply md:w-1/3 hidden md:block w-[60%]   ;
+        input{
+            @apply border   bg-transparent dark:bg-gray-950  border-gray-400  dark:border-none px-5  w-full  py-2 rounded-md;
+        }
+       
+
+        
+    }
+    .searchIcon{
+        @apply    w-[60%] md:hidden flex justify-end text-3xl   text-gray-700 dark:text-gray-300 pr-2;
+    }
+    .theme{
+        /* @apply  absolute md:right-12 right-5 cursor-pointer  p-1.5  text-3xl ;  
+        @apply  w-[10%] flex md:w-[50%] cursor-pointer md:justify-end p-1.5  text-3xl text-gray-700 dark:text-gray-300 ;
+        transition: transform 0.2s ease-in-out;
+        &:hover{
+            @apply scale-110    ;
+        }
+        
+         
+       
+    }
+}
+ 
+  */

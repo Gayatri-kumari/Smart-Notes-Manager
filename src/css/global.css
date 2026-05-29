@@ -8,14 +8,17 @@
 }
 body{
 /* bg-[#F7F7F7]   */
-    @apply dark:bg-[#0d1321] bg-[#f1f5f9] dark:text-gray-100 text-black;
-   
+    @apply dark:bg-[#0d1321] bg-[#f1f5f9] dark:text-gray-100 text-black ;
+    
+     overflow:hidden;
+     
+    
 }
 button{
     cursor:pointer;
 }
 main{
-    @apply flex flex-col items-center mt-6 px-4  ;
+    @apply flex flex-col items-center mt-2 px-4  ;
     .createNoteDiv{
         @apply flex flex-col items-center;
          p{
@@ -42,7 +45,16 @@ main{
    
     
     .noteContainer{
-        @apply w-full  grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4   md:p-4 md:px-10  mt-4 gap-4;
+        @apply w-full  grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4   md:p-4 md:px-10 
+         mt-4 gap-4 py-2
+         md:h-[70vh] h-[60vh];
+         
+         overflow-y: auto;
+            &::-webkit-scrollbar{
+                        display: none;
+                    }
+         
+         /* scrollbar styles */
         .noteCard{
             @apply  cursor-pointer rounded-lg p-4 min-h-50 flex flex-col transition-all duration-200 bg-[#f6f7fb] dark:bg-black;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
@@ -226,7 +238,8 @@ border:1px solid #fca5a5;
 
     }
     .categoryMainDiv{
-        @apply flex flex-wrap justify-center items-center md:gap-3  gap-0.5 mt-4;
+        @apply flex flex-wrap justify-center items-center md:gap-3  gap-0.5 mt-4 
+         ;
         .category{
             @apply dark:bg-white bg-gray-300 opacity-60 text-black 
             p-1 px-3 rounded-2xl font-semibold capitalize cursor-pointer;

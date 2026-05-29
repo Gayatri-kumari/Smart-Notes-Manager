@@ -15,6 +15,8 @@ import { FaTag, FaQuestionCircle } from "react-icons/fa";
 import { ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Bounce } from 'react-toastify/unstyled';
+import { CgNotes } from "react-icons/cg";
+
 import '../css/global.css'
 export const categoryIcons = {
   personal: <FaUser />,
@@ -52,10 +54,11 @@ return(
     <main>
     {noteList.length==0?(
         <div className='createNoteDiv'>
-               <p>No notes yet.
-               Create your first note to get started</p>   
-               <button onClick={handleModal} className='createNoteButton'>+ Create Note</button>          
-        </div> 
+    <div className="emptyIcon"><CgNotes /></div>
+    <h3>Your notes live here</h3>
+    <p>Capture ideas, tasks, and thoughts — all in one place</p>
+    <button onClick={handleModal} className='createNoteButton'>+ Create Note</button>
+</div>
     )
     :
     (

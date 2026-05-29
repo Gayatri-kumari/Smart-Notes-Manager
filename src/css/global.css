@@ -18,12 +18,21 @@ button{
     cursor:pointer;
 }
 main{
-    @apply flex flex-col items-center mt-2 px-4  ;
+    @apply flex flex-col items-center mt-2 px-4   ;
     .createNoteDiv{
-        @apply flex flex-col items-center;
-         p{
-        @apply opacity-85;
+        @apply flex flex-col items-center justify-center
+          gap-2   mt-20  ;
+         .emptyIcon{
+            @apply   text-[5rem];
+            animation:float 3s ease-in-out infinite;
          }
+         h3{
+            @apply text-2xl opacity-80 font-semibold;
+         }
+          p{
+            @apply opacity-60 text-[1rem];
+         }
+       
          
         
        }
@@ -47,7 +56,7 @@ main{
     .noteContainer{
         @apply w-full  grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4   md:p-4 md:px-10 
          mt-4 gap-4 py-2
-         md:h-[70vh] h-[60vh];
+          ;
          
          overflow-y: auto;
             &::-webkit-scrollbar{
@@ -56,7 +65,7 @@ main{
          
          /* scrollbar styles */
         .noteCard{
-            @apply  cursor-pointer rounded-lg p-4 min-h-50 flex flex-col transition-all duration-200 bg-[#f6f7fb] dark:bg-black;
+            @apply  cursor-pointer rounded-lg p-4    min-h-50 flex flex-col transition-all duration-200 bg-[#f6f7fb] dark:bg-black;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             /* background: #ffffff !important; */
             &.personal{
@@ -337,3 +346,13 @@ border:1px solid #fca5a5;
 .dark .Toastify__close-button--colored {
     color: #94a3b8 !important; /* slate-400 */
 }
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-10px);
+    }
+}
+
+ 

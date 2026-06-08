@@ -9,7 +9,7 @@ import { uicontext } from './contexts/UIContext';
 import EditMode from './EditMode';
 import ReadOnlyMode from './ReadOnlyMode';
 const NoteViewMain = (props) => {
-  let {editingMode,selectedNoteId,localNote,setLocalNote,setEditingMode,handleLocalNoteChange,resetLocalNote,handleDiscard}=props
+  let {editingMode,selectedNoteId,localNote,setLocalNote,setEditingMode,handleLocalNoteChange,resetLocalNote,handleDiscard,markTodoComplete}=props
   let noteData=useContext(noteContext)
   let {noteList,handleImp,deleteNote,setNoteList}=noteData
   
@@ -56,7 +56,7 @@ const NoteViewMain = (props) => {
   let displayTitle=title.trim()==''?altTitle:title
  
   console.log(selectedNote)
-  return (
+   return (
        
         <main>
           {editingMode?
@@ -68,9 +68,10 @@ const NoteViewMain = (props) => {
           handleImp={handleImp}
           handleDiscard={handleDiscard} 
           handleLocalNoteSave={handleLocalNoteSave}
-          selectedNote={selectedNote} />
+          selectedNote={selectedNote}
+           />
           :
-          <ReadOnlyMode selectedNote={selectedNote} finalCategory={finalCategory} displayTitle={displayTitle} handelEditingMode={handelEditingMode} deleteNote={deleteNote} handleImp={handleImp}/>}
+          <ReadOnlyMode selectedNote={selectedNote} finalCategory={finalCategory} displayTitle={displayTitle} handelEditingMode={handelEditingMode} deleteNote={deleteNote} handleImp={handleImp} markTodoComplete={markTodoComplete}/>}
         </main>
        
   )

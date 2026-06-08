@@ -7,26 +7,36 @@
     height: 100dvh;
     /* z-index:1; */
     /* background-color: #000000bf; */
-    position: fixed;
-    top: 0;
+    position: fixed; 
+    top: 0; 
     left: 0;
     backdrop-filter: blur(3px);
     .innerSearchModal{
         @apply bg-white dark:bg-gray-800 w-[100%] md:w-[80%] lg:w-[50%] 
   h-[100%] md:h-[85%] md:rounded-md flex flex-col;
          .searchNav{
-        @apply px-[10px] py-[12px] flex-shrink-0;
+        @apply px-[15px] py-[15px] flex ;
         input{
-            @apply bg-gray-200 dark:bg-gray-700 rounded-2xl w-[85%] h-[40px] p-3 border border-black dark:border-gray-500;
+            @apply w-[85%] bg-gray-200 dark:bg-gray-700
+             rounded-3xl outline-none p-2.5 px-5 ;
+            /* @apply bg-gray-200 dark:bg-gray-700 rounded-2xl w-[85%] h-[40px] p-3 border border-black dark:border-gray-500 outline-none; */
         }
         .close{
-            @apply ml-1 font-semibold ml-2 text-white bg-gray-500 dark:bg-gray-800 p-1 rounded-lg w-[12%] py-1.5 text-center dark:border dark:border-gray-500;
+            /* @apply ml-1 font-semibold ml-2 text-white bg-gray-500 dark:bg-gray-800 p-1 rounded-lg w-[12%] py-1.5 text-center dark:border dark:border-gray-500; */
+            @apply   text-lg font-semibold text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white flex-1   ;
+ /* text-shadow: 0px -1px black, -1px 0px black, 0px 1px black, 1px 0px black; */
         }
 
         }
         
         .searchResult{
-            @apply px-[12px] overflow-y-auto flex-1;
+            @apply   overflow-y-auto flex-1;
+            .searchResultContainer{
+                @apply px-5;
+            }
+            .noNotesFound{
+                @apply text-center mt-8 text-gray-600 dark:text-gray-400;
+            }
             .searchCard{
                 @apply bg-[#f5f6f8] dark:bg-gray-700 p-3 border border-gray-300 dark:border-gray-600 mb-[10px] rounded-[8px] w-full h-fit;
                 transition: all .2s ease-in;
@@ -52,10 +62,13 @@
                   border-radius: 50%;
                 }
                 .header{
-                    @apply flex   gap-3;
+                    @apply flex items-center  gap-3;
                        
                 h2{
-                    @apply text-black capitalize dark:text-white font-semibold text-[1.1rem]
+                    @apply text-black  
+                    capitalize 
+                     dark:text-white font-semibold 
+                     text-[.9rem]
                 }
                 span{
                     @apply   px-1 py-[3px] rounded-lg text-sm flex items-center text-[.8rem] opacity-85;
@@ -135,14 +148,19 @@ border:1px solid #fca5a5;
 .recentItem {
   display: flex;
   gap: 10px;
-  padding: 8px 6px;
+  padding: 8px 24px;
   border-radius: 6px;
  cursor: pointer;
+ align-items: center;
+ .icon{
+    @apply text-gray-600 dark:text-gray-400 text-xl mr-1;
+ }
  
  
 }
 .recentItem .main{
-    width: 80%;
+    width: 85%;
+     
  }
 .recentItem .close{
       display:flex;
@@ -150,7 +168,8 @@ border:1px solid #fca5a5;
     
 }
 .close button{
-    @apply h-[40px] w-[40px] font-bold text-[#616161] flex items-center justify-center text-[1.5rem] dark:text-gray-200;
+    @apply h-[30px] w-[30px]   text-[#616161] flex 
+    items-center justify-center text-[1.5rem] dark:text-gray-200;
     &:hover{
             @apply rounded-full bg-gray-300 dark:bg-gray-600;
 
@@ -159,8 +178,9 @@ border:1px solid #fca5a5;
 }
  
 .recentItem:hover {
-    @apply dark:bg-gray-700 bg-[#e9edf3];
- }
+     @apply dark:bg-gray-700/60 bg-[#e9edf3];
+
+  }
 
 .recentItem .title {
   font-weight: 500;
@@ -171,9 +191,9 @@ border:1px solid #fca5a5;
   opacity: 0.7;
 }
 .recentDiv{
-    @apply dark:text-gray-300 text-black flex flex-col;
+    @apply dark:text-gray-300 text-gray-700   flex flex-col;
     h2{
-        @apply text-[1.1rem] ml-2;
+        @apply text-[1.09rem] ml-2 px-[12px] ;
     }
     h3{
         @apply text-center mt-4 opacity-85;

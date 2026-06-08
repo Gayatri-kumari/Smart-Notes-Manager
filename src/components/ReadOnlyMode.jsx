@@ -10,12 +10,11 @@ import { formatSmartDate } from './NoteView';
 
 const ReadOnlyMode = (props) => {
    
-  let {selectedNote,finalCategory,displayTitle,handelEditingMode,deleteNote,handleImp}=props
+  let {selectedNote,finalCategory,displayTitle,handelEditingMode,deleteNote,handleImp,markTodoComplete}=props
   let {theme,openConfirm}=useContext(uicontext)
   let strokeColor=theme=='dark'?'white':'black'
-  let {id,title, altTitle,description,category,imp,customCat,draft,createdAt,updatedAt}=selectedNote
-
-  return (
+  let {id,title, altTitle,description,category,imp,customCat,draft,createdAt,updatedAt,todoList}=selectedNote
+   return (
     <div className='noteMain' >
               <div className='header' >
                 <div className='titleMetaData'>
@@ -54,8 +53,23 @@ const ReadOnlyMode = (props) => {
 
                 </div>
               </div>
+               
               <div className='noteBody'>
-                <p>{description}</p>
+                {
+                todoList.length>0? todoList.map((v)=>{
+                    return(
+                      <div key={v.id} className='todoItem'>
+                        <span className={`todoCircle ${v.completed?'done':''}`} onClick={()=>markTodoComplete(v.id)}/>
+                        <span className={v.completed?'strikethrough':''}>{v.text}</span>
+
+                      </div>
+                    )
+                  }
+                  )
+                
+
+    :<p>{description}</p>
+                }
               </div>
           </div>
   )

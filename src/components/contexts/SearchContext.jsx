@@ -4,7 +4,7 @@ import SearchModal from '../SearchModal'
 import { uicontext } from './UIContext'
 import { useNavigate } from 'react-router'
 
-export const searchContext=createContext()
+export const searchContext=createContext() 
 const SearchContext = (props) => {
     let uiData=useContext(uicontext)
     let {searchmodal,handleSearchModal}=uiData
@@ -26,7 +26,7 @@ const SearchContext = (props) => {
     } 
     let [recentSearch,setrecentSearch]=useState(getRecentSearch())//store in localstorage
 
-    //to handle esc keyboard action
+   // to handle esc keyboard action
     useEffect(() => {
         if (!searchmodal) return
         const handleKeyDown = (event) => {
@@ -52,8 +52,18 @@ const SearchContext = (props) => {
     useEffect(()=>{
        if(search!='')
        { 
+
+        // let todoString=noteList[noteList.length - 2].todoList.text.join("")//to check if the search is working for todo list as well
+        // console.log(todoString)
+         
         let arr=noteList.filter(v=>{
-            return v.title.toLowerCase().includes(search.toLowerCase()) || v.altTitle.toLowerCase().includes(search.toLowerCase()) || v.description.toLowerCase().includes(search.toLowerCase())
+             
+            let todoTextsCheck=v.todoList.map(t=>t.text).join("").toLowerCase().includes(search.toLowerCase())
+            
+           // console.log(v.todoList.forEach(t=>t.text.toLowerCase().includes(search.toLowerCase())))
+            return v.title.toLowerCase().includes(search.toLowerCase()) || 
+            todoTextsCheck ||
+            v.altTitle.toLowerCase().includes(search.toLowerCase()) || v.description.toLowerCase().includes(search.toLowerCase())
             })
         // console.log(arr)//search result
         setResultList(arr)

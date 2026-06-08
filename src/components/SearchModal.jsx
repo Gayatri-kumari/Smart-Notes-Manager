@@ -9,6 +9,8 @@ import { FaStar } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { categoryIcons } from './NoteDisplay';
 import { useNavigate } from 'react-router';
+import { FaHistory } from "react-icons/fa";
+
 export const highlightText = (search,text) => {
     if (!search) return text
     const parts = text.split(new RegExp(`(${search})`, "gi"))
@@ -40,10 +42,10 @@ return createPortal(
       <div className="innerSearchModal" onClick={(e)=>e.stopPropagation()}>
         <form onSubmit={(e)=>e.preventDefault()}>
           <div className='searchNav'>
-            <input type="text" ref={searchRef} name="search" value={search} placeholder='search notes' onChange={handleSearchContent}/>
-            <button type='reset' className='close' onClick={handleModalClosing}>close</button>
+            <input type="text" ref={searchRef} name="search" value={search} placeholder='search notes' onChange={handleSearchContent} autoComplete="off"/>
+            <button type='reset' className='close' onClick={handleModalClosing}>Cancel</button>
           </div>
-        </form>
+        </form> 
         <div className='searchResult'>
             { search==''? (
               <div className='recentDiv'>
@@ -60,7 +62,8 @@ return createPortal(
                       navigate(`/note/${v.id}`)
                       handleModalClosing()
                       }}>
-                      <span className="icon">⏱</span>
+                      {/* <span className="icon">⏱</span> */}
+                      <span className="icon"><FaHistory/></span>
                       <div className='main'>
                         <p className="title">{!v.title?v.altTitle:v.title}</p>
                         <p className="desc">{v.description.slice(0, 40)}</p>
@@ -71,7 +74,7 @@ return createPortal(
                           e.stopPropagation()
                           removeFromRecent(v.id)
                         }
-                      }>x</button> 
+                      }><IoMdClose /></button> 
                       </div>
                     </div>
                   ))}
@@ -79,7 +82,8 @@ return createPortal(
               )}
               </div>
             )
-            :resultList.length> 0 && resultList.map(v=>{
+            :<div className='searchResultContainer'>
+            {resultList.length> 0 ? resultList.map(v=>{
 
                 let finalCategory =(!v.category?.trim() || (v.category === 'custom' && v.customCat === ''))
                         ? 'uncategorised'
@@ -123,7 +127,25 @@ return createPortal(
                                               />
                       }
                     </div> 
-                    <p>{highlightText(search,v.description)} </p>
+                    {v.todoList.length>0 ?<div className='todoPreview'>
+
+                         {v.todoList.slice(0,2).map((t)=>{
+                          return(
+                            <div className='todoPreviewItem' key={t.id}>
+                               <span className={`previewCircle ${t.completed?'done':''}`}/>
+                                <span className={t.completed?'strikethrough':''}>{highlightText(search,t.text)}</span>
+          
+                             </div>
+                          )
+                         })
+                         
+                         }
+
+                         {v.todoList.length > 2 && <span className='moreItems'>+{v.todoList.length-2} more</span>}
+                    </div>
+                    :
+                    <p>{highlightText(search,v.description)} </p>}
+                    
                     <span className='doc'>
                         {
                         new Date(v.createdAt).toLocaleDateString('en-GB', 
@@ -138,7 +160,8 @@ return createPortal(
                     </span>
                   </div>
                 )
-              })
+              }):<div className='noNotesFound'> No matching notes found </div>}
+              </div>
             }
         </div>
 

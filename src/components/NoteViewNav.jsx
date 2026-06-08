@@ -22,9 +22,13 @@ const NoteViewNav = (props) => {
   let {sideBarCategory,setSideBarCategory,
     selectedNoteId,sideBarSearch,dirtyState,
     setSideBarSearch,editingMode,handleDiscard}=props
-  
+
   let search=sideBarSearch.toLowerCase()
-  let searchResult=noteList.filter((v)=>v.title.toLowerCase().includes(search) || v.altTitle.toLowerCase().includes(search) || v.description.toLowerCase().includes(search))
+  let searchResult=noteList.filter((v)=>{ 
+    let todoTextsMatch=v.todoList.some(todo=>todo.text.toLowerCase().includes(search))
+    return v.title.toLowerCase().includes(search) || v.altTitle.toLowerCase().includes(search) || v.description.toLowerCase().includes(search) || todoTextsMatch  
+ 
+  })
   let arrayToFilterBasedOnCat=!sideBarSearch.trim() ? noteList : searchResult
   let filteredNotes=arrayToFilterBasedOnCat.filter((v)=>{
         if (sideBarCategory=='all') return true
@@ -115,8 +119,19 @@ const NoteViewNav = (props) => {
                                  }} 
                               />}</span>
                 </div>
-
-                <p>{highlightText(sideBarSearch,note.description)}</p>
+                {note.todoList.length>0 ? <div className='todoPreview'>
+                        {
+                        note.todoList.slice(0,2).map((v)=> (
+                            <div key={v.id} className='todoPreviewItem'>
+                                <span className={`previewCircle ${v.completed?'done':''}`}/>
+                                <span className={v.completed?'strikethrough':''}>{highlightText(sideBarSearch, v.text)}</span>
+                            </div>
+                        ))
+                      }
+                        {note.todoList.length > 2 && <span className='moreItems'>+{note.todoList.length-2} more</span>}
+                        </div>
+                   :<p>{highlightText(sideBarSearch,note.description)}</p>}
+                
                
                 <div className="meta">
                   <div className={`category ${finalCategory}`}>

@@ -10,7 +10,7 @@ body{
 /* bg-[#F7F7F7]   */
     @apply dark:bg-[#0d1321] bg-[#f1f5f9] dark:text-gray-100 text-black ;
     
-     overflow:hidden;
+     
      
     
 }
@@ -18,7 +18,8 @@ button{
     cursor:pointer;
 }
 main{
-    @apply flex flex-col items-center mt-2 px-4   ;
+    @apply flex flex-col items-center   px-4   ;
+    overflow:hidden;
     .createNoteDiv{
         @apply flex flex-col items-center justify-center
           gap-2   mt-20  ;
@@ -54,18 +55,18 @@ main{
    
     
     .noteContainer{
-        @apply w-full  grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4   md:p-4 md:px-10 
-         mt-4 gap-4 py-2
-          ;
-         
-         overflow-y: auto;
-            &::-webkit-scrollbar{
+        @apply w-full  
+        grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 
+        md:p-4 md:px-10 px-15
+        mt-2 gap-4 py-2
+        md:h-[70vh] h-[60vh] overflow-y-auto;
+        &::-webkit-scrollbar{
                         display: none;
                     }
          
          /* scrollbar styles */
         .noteCard{
-            @apply  cursor-pointer rounded-lg p-4    min-h-50 flex flex-col transition-all duration-200 bg-[#f6f7fb] dark:bg-black;
+            @apply  cursor-pointer rounded-lg p-4  h-52.5  min-h-50 flex flex-col transition-all duration-200 bg-[#f6f7fb] dark:bg-black;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             /* background: #ffffff !important; */
             &.personal{
@@ -237,9 +238,28 @@ border:1px solid #fca5a5;
                 overflow: hidden;
                 text-overflow: ellipsis;  
             }
+            .todoPreview {
+    @apply flex flex-col   px-[2px] py-[6px]  mb-[5px] ;
+    
+    .todoPreviewItem {
+        @apply flex items-center  gap-2 text-sm ;
+        
+        .previewCircle {
+            @apply w-2 h-2 rounded-full border border-gray-400 shrink-0 ;
+            /* &.done { @apply bg-amber-500 border-amber-500 line-through; } */
+        }
+        span.strikethrough {
+            @apply line-through opacity-40;
+        }
+    }
+    .moreItems {
+        @apply text-xs opacity-40 mt-1;
+    }
+}
             .doc{
                 @apply text-[.85rem] opacity-60 mt-auto;
             }
+            
            
         }
         
@@ -247,11 +267,11 @@ border:1px solid #fca5a5;
 
     }
     .categoryMainDiv{
-        @apply flex flex-wrap justify-center items-center md:gap-3  gap-0.5 mt-4 
+        @apply flex flex-wrap justify-center items-center md:gap-3  gap-1 mt-3 
          ;
         .category{
             @apply dark:bg-white bg-gray-300 opacity-60 text-black 
-            p-1 px-3 rounded-2xl font-semibold capitalize cursor-pointer;
+             px-3 rounded-2xl font-semibold capitalize cursor-pointer;
             
             &.activeCat{
                 @apply md:scale-115 scale-100 opacity-100 dark:bg-white dark:text-black bg-black text-white;

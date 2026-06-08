@@ -17,17 +17,37 @@ const NoteNav = () => {
   let {theme,handleTheme,handleSearchModal,searchmodal}=uiData
    // let {searchmodal}=searchData
 
+
+    useEffect(() => {
+           
+           const handleKeyDown = (event) => {
+               if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+                 
+                event.preventDefault()
+               handleSearchModal()
+               }
+           }
+           window.addEventListener("keydown", handleKeyDown)
+           return () => {
+               window.removeEventListener("keydown", handleKeyDown)
+           }
+       },[searchmodal])
+
+
   return (<>
    <nav>
   <h2>SmartNotes Manager</h2>
 
   <div className='searchField'>
-    <input
-      type="search"
-      placeholder='Search Notes'
-      onClick={handleSearchModal}
-      readOnly
-    />
+    <div className='searchWrapper' onClick={handleSearchModal}>
+      <IoIosSearch className='searchIcon' />
+      <span className='placeholder'>Search Notes</span>
+      <div className='kbdHint'>
+        <kbd>Ctrl</kbd>
+        <kbd>k</kbd>
+      </div>
+
+    </div>
   </div>
 
   <div className='rightActions'>

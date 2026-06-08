@@ -20,7 +20,7 @@ const UIContext = (props) => {
         closing:false
     })
     const [shake,setShake]=useState(false)
-    const [isSidebarOpen,setIsSidebarOpen]=useState(true)
+    const [isSidebarOpen,setIsSidebarOpen]=useState(false)
     const handleSidebarToggle=()=>{
         setIsSidebarOpen(prev=>!prev)
     }

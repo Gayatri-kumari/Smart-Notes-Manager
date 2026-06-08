@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
-import '../css/noteview.css'
+import '../css/noteview.css' 
 import { v4 as idGen} from 'uuid';
 import NoteViewMain from './NoteViewMain';
 import NoteViewNav from './NoteViewNav';
@@ -35,7 +35,7 @@ const NoteView = () => {
   //states for sidebar category and search
   const [sideBarCategory,setSideBarCategory]=useState('all')
   const [sideBarSearch,setSideBarSearch]=useState('')
-  const {handleDrafts,resetNote,noteList,noteRef}=useContext(noteContext)
+  const {handleDrafts,resetNote,noteList,noteRef,markTodoComplete}=useContext(noteContext)
   //state for edit mode
   const [editingMode,setEditingMode]=useState(false)
   //state to handle local changes in edit mode and used in creating new note before actually saving it to the main list
@@ -209,7 +209,8 @@ useEffect(() => {
       setEditingMode={setEditingMode} 
       handleLocalNoteChange={handleLocalNoteChange}
       resetLocalNote={resetLocalNote}
-      handleDiscard={handleDiscard}/>
+      handleDiscard={handleDiscard}
+      markTodoComplete={markTodoComplete}/>
    
     </div>
     {openModal==true && <Noteform/>}

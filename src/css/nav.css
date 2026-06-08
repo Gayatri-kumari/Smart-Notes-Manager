@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
  
@@ -13,21 +16,58 @@ nav{
         dark:text-gray-300 text-gray-700
         shrink-0  
         ;
-        font-family: "Playpen Sans", cursive;
+        /* font-family: "Playpen Sans", cursive; */
+        /* font-family: "Pacifico", cursive; */
+        font-family: "Shadows Into Light", cursive;
+        font-weight:900;
+        letter-spacing:.09rem;
+          /* linear-gradient(to bottom, transparent 62%, #fff87e 0) center center/0% 75% no-repeat; */
+      
+        /* text-shadow: 0px -1px gold,-1px 0px gold,0px 1px gold,1px 0px gold; */
+        
+       
     }
 
     .searchField{
         @apply hidden md:flex 
         flex-1    mx-6;
 
-        input{
-            @apply  w-full max-w-xl py-2 px-4 rounded-md
+        /* input{
+            /* @apply  w-full max-w-xl py-2 px-4 rounded-2xl
             border border-gray-400
             dark:border-gray-700
             bg-transparent dark:bg-gray-950
             outline-none
+            focus:ring-2 focus:ring-amber-500;  
+            @apply  w-full max-w-xl py-2 px-4 rounded-2xl
+             
+             bg-gray-200 dark:bg-gray-700  
+            outline-none
             focus:ring-2 focus:ring-amber-500;
+        } */
+          .searchWrapper {
+        @apply flex items-center   w-full max-w-xl
+        py-2 px-4 rounded-2xl cursor-pointer
+        bg-gray-200 dark:bg-gray-900
+        hover:bg-gray-300 dark:hover:bg-gray-800
+        transition-colors;
+
+        .placeholder {
+            @apply flex-1 dark:text-gray-400 text-gray-500 text-sm;
         }
+        .kbdHint {
+            @apply flex gap-0.5;
+
+            kbd {
+                @apply text-xs text-gray-500 dark:text-gray-300
+                bg-white dark:bg-gray-950
+                border border-gray-300 dark:border-gray-800
+                rounded px-2 py-1;
+                font-family: inherit;
+            }
+        }
+    }
+
     }
 
     .rightActions{

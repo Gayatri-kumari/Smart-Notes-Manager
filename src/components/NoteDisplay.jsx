@@ -146,7 +146,16 @@ return(
                             : finalCategory
                         }
                     </div>
-                    <p className="description">{value.description}</p>
+                    {value.category==='todo' ?<div className='todoPreview'>
+                        {value.todoList.slice(0,2).map((v)=> (
+                            <div key={v.id} className='todoPreviewItem'>
+                                <span className={`previewCircle ${v.completed?'done':''}`}/>
+                                <span className={v.completed?'strikethrough':''}>{v.text}</span>
+                            </div>
+                        ))}
+                        {value.todoList.length > 2 && <span className='moreItems'>+{value.todoList.length-2} more</span>}
+                    </div>
+                    :<p className="description">{value.description}</p>  }
                     <span className='doc'>
                             {
                             new Date(value.updatedAt || value.createdAt).toLocaleDateString('en-GB', 

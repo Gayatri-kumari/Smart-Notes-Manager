@@ -12,6 +12,7 @@ export const emptyNote = () => ({
     title:'',
     altTitle:'',
     description:'',
+    todoList:[],
     category:'',
     imp:false,
     customCat:'',
@@ -53,7 +54,10 @@ let handleSubmit=(e)=>{
         let untitledCount=noteList.filter((v)=>v.title.trim()==='').length+1;
         console.log(untitledCount)
         let finalTitle=!note.title.trim()?`Untitled ${untitledCount}`:''
-        setNoteList([...noteList,{...note,altTitle:finalTitle}])
+        let finalToDoList=note.category=="todo"?note.todoList:[]
+        let finalCustomCat=note.category=="custom"?note.customCat:''
+        let finaldescription=note.category!='todo'?note.description:''
+        setNoteList([...noteList,{...note,altTitle:finalTitle,todoList:finalToDoList,customCat:finalCustomCat,description:finaldescription}])
         resetNote()
         handleModal()
     }
@@ -62,11 +66,22 @@ let handleCancel=(e)=>{
         e.preventDefault()
         resetNote()
     }
-   
+
+    console.log(note)
    
 let handleNoteChange=(e)=>{
+    
         let {name,value,checked}=e.target
-        if(name=='imp')
+       
+        if(name=='todoItem' )
+        {
+            console.log(note)
+            const todoList=note.todoList || [];
+            setNote({...note, todoList:[...note.todoList,{id:idGen(),text:value,completed:false}]})
+        }
+        else{
+
+             if(name=='imp')
         {
             setNote({...note,[name]:checked})
         }
@@ -76,6 +91,9 @@ let handleNoteChange=(e)=>{
             [name]:value
         })
         }
+
+        }
+       
     }
 
     const [selectedCategory,setCategory]=useState('all')
@@ -129,7 +147,7 @@ let handleNoteChange=(e)=>{
                 note.updatedAt=new Date()
                 return note
             }
-            return v
+            return v 
         })
 
         setNoteList(updatedList)
@@ -148,7 +166,7 @@ let handleNoteModal=()=>{
             // setEditMode(prev=>!prev)
            if(note.title!=title || note.description!=description 
             || note.category!=category || note.customCat!=customCat 
-            || note.imp!=imp)
+            || note.imp!=imp || note.todoList.length!=currentNote.todoList.length)
             {
                  
                 openConfirm({
@@ -173,7 +191,7 @@ let handleNoteModal=()=>{
         //handles the discard ,X or outside click when user is creating a new note
         else{
             
-        if(note.title||note.description)
+        if(note.title||note.description || note.todoList.length>0)
         {
             
             openConfirm({
@@ -210,7 +228,7 @@ let handleDrafts=()=>{
     {
         const latestNote = noteRef.current; 
  
-        if (latestNote.title || latestNote.description) 
+        if (latestNote.title || latestNote.description || latestNote.todoList.length > 0) 
         {
              
             console.log("inside inner if")
@@ -243,13 +261,34 @@ let handleDrafts=()=>{
      
 }
 
+let markTodoComplete=(id)=>{
+    console.log("marking complete",id)
+    let newTodoList=[];
+    
+         newTodoList=note.todoList.map((v)=>{
+        if(v.id==id)
+        {
+            return {...v,completed:!v.completed}
+        }
+        return v   
+    })
+    setNote({...note,todoList:newTodoList})
+ 
+   
+    console.log(newTodoList)
+
+}
+let deleteTodoItem=(id)=>{
+    setNote({...note,todoList:note.todoList.filter((v)=>v.id!=id)})
+
+}
 
   return (
     <noteContext.Provider value={{handleNoteModal,handleDrafts,note,
     handleNoteChange,handleSubmit,handleCancel,
     noteList,selectedCategory,setNoteList,
-    handleCategory,deleteNote,editNote,
-    editMode,handleSave,handleImp,resetNote,noteRef}}>
+    handleCategory,deleteNote,editNote,deleteTodoItem,
+    editMode,handleSave,handleImp,resetNote,noteRef,markTodoComplete}}>
       {props.children}
       
     </noteContext.Provider>

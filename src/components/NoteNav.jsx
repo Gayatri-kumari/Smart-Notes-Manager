@@ -8,22 +8,16 @@ import { searchContext } from './contexts/SearchContext';
 import { uicontext } from './contexts/UIContext';
 import { IoIosSearch } from "react-icons/io";
 
-
 const NoteNav = () => {
-  // let data=useContext(noteContext)
   let searchData=useContext(searchContext)
-  let uiData=useContext(uicontext)
-  console.log(uiData)
-  let {theme,handleTheme,handleSearchModal,searchmodal}=uiData
-   // let {searchmodal}=searchData
-
-
-    useEffect(() => {
+  let {theme,handleTheme,handleSearchModal,searchmodal}=useContext(uicontext)
+  //to open search using CTRL+K
+  useEffect(() => {
            
            const handleKeyDown = (event) => {
                if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
                  
-                event.preventDefault()
+               event.preventDefault() //to stop opening the search for browser
                handleSearchModal()
                }
            }
@@ -34,42 +28,36 @@ const NoteNav = () => {
        },[searchmodal])
 
 
-  return (<>
-   <nav>
-  <h2>SmartNotes Manager</h2>
+return (<>
+<nav>
+    <h2>SmartNotes Manager</h2>
 
-  <div className='searchField'>
-    <div className='searchWrapper' onClick={handleSearchModal}>
-      <IoIosSearch className='searchIcon' />
-      <span className='placeholder'>Search Notes</span>
-      <div className='kbdHint'>
-        <kbd>Ctrl</kbd>
-        <kbd>k</kbd>
+    {/* input field visible in larger screens */}
+    <div className='searchField'>
+      <div className='searchWrapper' onClick={handleSearchModal}>
+        <IoIosSearch className='searchIcon' />
+        <span className='placeholder'>Search Notes</span>
+        <div className='kbdHint'>
+          <kbd>Ctrl</kbd>
+          <kbd>k</kbd>
+        </div>
+
+      </div>
+    </div>
+
+    <div className='rightActions'>
+      <div
+        className='searchIcon'
+        onClick={handleSearchModal}
+      >
+        <IoIosSearch />
+      </div>
+
+      <div className="theme" onClick={handleTheme}>
+          {theme === 'dark' ? <IoSunnyOutline />: <GoMoon />}
       </div>
 
     </div>
-  </div>
-
-  <div className='rightActions'>
-
-    <div
-      className='searchIcon'
-      onClick={handleSearchModal}
-    >
-      <IoIosSearch />
-    </div>
-
-    <div
-      className="theme"
-      onClick={handleTheme}
-    >
-      {theme === 'dark'
-        ? <IoSunnyOutline />
-        : <GoMoon />
-      }
-    </div>
-
-  </div>
 </nav>
      {searchmodal && <SearchModal/>}
     </>

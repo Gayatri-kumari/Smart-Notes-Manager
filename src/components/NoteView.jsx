@@ -49,7 +49,8 @@ const NoteView = () => {
         customCat:'',
         draft:false,
         createdAt:new Date(),
-        updatedAt:null
+        updatedAt:null,
+        todoList:[]
       })
 
   //context data
@@ -77,7 +78,8 @@ const NoteView = () => {
            local.description !== selected.description ||
            local.imp !== selected.imp || 
            local.category !== selected.category || 
-           local.customCat !== selected.customCat
+           local.customCat !== selected.customCat ||
+           JSON.stringify(local.todoList || []) !== JSON.stringify(selected.todoList || [])
     
   }
   let dirtyState = selectedNote?calculateDirtyState(localNote, selectedNote) : false;
@@ -111,7 +113,8 @@ const NoteView = () => {
         customCat:'',
         draft:false,
         createdAt:new Date(),
-        updatedAt:null
+        updatedAt:null,
+        todoList:[]
       })
   }
 

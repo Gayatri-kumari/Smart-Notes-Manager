@@ -56,10 +56,10 @@ const ReadOnlyMode = (props) => {
                
               <div className='noteBody'>
                 {
-                todoList.length>0? todoList.map((v)=>{
+                 category=='todo' ? todoList.map((v)=>{
                     return(
                       <div key={v.id} className='todoItem'>
-                        <span className={`todoCircle ${v.completed?'done':''}`} onClick={()=>markTodoComplete(v.id)}/>
+                        <span className={`todoCircle ${v.completed?'done':''}`} onClick={()=>markTodoComplete(v.id,id)}/>
                         <span className={v.completed?'strikethrough':''}>{v.text}</span>
 
                       </div>

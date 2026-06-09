@@ -3,9 +3,17 @@ import React, { createContext,useContext,useRef,useState } from 'react'
 export const uicontext=createContext()
 const UIContext = (props) => {
       
-    const [theme,setTheme]=useState('')
+    const [theme,setTheme]=useState('dark')
     const [searchmodal,setSearchModal]=useState(false)
     const [openModal,setOpenModal]=useState(false)
+    const [todoEditMode,setToDoEditMode]=useState(false)
+    const toggleToDoEditMode=(value)=>{
+        if(typeof value === 'boolean'){
+            setToDoEditMode(value)
+        } else {
+            setToDoEditMode(prev=>!prev)
+        }
+    }
     const [confirmModal,setConfirmModal]=useState({
         show:false,
         title:'',
@@ -92,7 +100,8 @@ const UIContext = (props) => {
      <uicontext.Provider value={{theme,handleTheme,searchmodal,
      handleSearchModal,modal,handleModal,openModal,confirmModal,
      openConfirm,handleCancel,actionOnConfirm,handleOverlayClick,
-     shake,modalState,isSidebarOpen,handleSidebarToggle}}>
+     shake,modalState,isSidebarOpen,handleSidebarToggle,
+     toggleToDoEditMode,todoEditMode}}>
      {props.children}
      </uicontext.Provider>
   )

@@ -149,7 +149,7 @@ let handleNoteChange=(e)=>{
             }
             return v 
         })
-
+        console.log(updatedList)
         setNoteList(updatedList)
         handleModal()
         setEditMode(false)
@@ -163,10 +163,14 @@ let handleNoteModal=()=>{
         {
             let currentNote=noteList.find(v=>v.id==note.id)
             let {title,description,category,imp,customCat}=currentNote
+            let todoMatches = currentNote.todoList.length == note.todoList.length && currentNote.todoList.every((item, index) => {
+                const nextItem = note.todoList[index]
+                return nextItem && item.text == nextItem.text && item.completed == nextItem.completed
+            })
             // setEditMode(prev=>!prev)
            if(note.title!=title || note.description!=description 
             || note.category!=category || note.customCat!=customCat 
-            || note.imp!=imp || note.todoList.length!=currentNote.todoList.length)
+            || note.imp!=imp || !todoMatches)
             {
                  
                 openConfirm({
@@ -261,11 +265,31 @@ let handleDrafts=()=>{
      
 }
 
-let markTodoComplete=(id)=>{
+let markTodoComplete=(id,noteid='')=>{
     console.log("marking complete",id)
     let newTodoList=[];
     
-         newTodoList=note.todoList.map((v)=>{
+    if(noteid!=''){
+        let targetNote=noteList.find((n)=>n.id==noteid)
+        newTodoList=targetNote.todoList.map(todo=>{
+            if(todo.id==id)
+            {
+                return {...todo,completed:!todo.completed}
+            }
+            return todo
+        })
+         let newNoteList=noteList.map(n=>{
+            if(n.id==noteid)
+            {
+                return {...n,todoList:newTodoList}
+            }
+            return n
+         })
+         setNoteList(newNoteList)
+     }
+    else{
+         
+        newTodoList=note.todoList.map((v)=>{
         if(v.id==id)
         {
             return {...v,completed:!v.completed}
@@ -273,10 +297,17 @@ let markTodoComplete=(id)=>{
         return v   
     })
     setNote({...note,todoList:newTodoList})
+
+    }
+         
  
    
     console.log(newTodoList)
 
+}
+
+let editTodoItem=(id)=>{
+    
 }
 let deleteTodoItem=(id)=>{
     setNote({...note,todoList:note.todoList.filter((v)=>v.id!=id)})
@@ -286,7 +317,7 @@ let deleteTodoItem=(id)=>{
   return (
     <noteContext.Provider value={{handleNoteModal,handleDrafts,note,
     handleNoteChange,handleSubmit,handleCancel,
-    noteList,selectedCategory,setNoteList,
+    noteList,selectedCategory,setNoteList,setNote,
     handleCategory,deleteNote,editNote,deleteTodoItem,
     editMode,handleSave,handleImp,resetNote,noteRef,markTodoComplete}}>
       {props.children}

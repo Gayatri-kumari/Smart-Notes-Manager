@@ -10,7 +10,6 @@ import ConfirmModal from '../components/ConfirmModal'
 import { useNavigate } from 'react-router';
 import { FaBriefcase, FaLightbulb, FaUser, FaBook } from "react-icons/fa";
 import { MdChecklist } from "react-icons/md";
-
 import { FaTag, FaQuestionCircle } from "react-icons/fa";
 import { ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

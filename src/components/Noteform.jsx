@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import '../css/modal.css'
 import { noteContext } from './contexts/NoteContext'
@@ -9,14 +9,17 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdCheckCircle,MdRadioButtonUnchecked } from "react-icons/md";
 import { uicontext } from './contexts/UIContext'
 import { MdOutlineEdit } from "react-icons/md";
+import { FaSave } from "react-icons/fa";
 
-const Noteform = () => { 
+const Noteform = () => {  
     let data=useContext(noteContext)
     const [todoItem,setTodoItem]=React.useState('')
-    let {note,noteList,handleNoteModal,handleDrafts,handleNoteChange,handleSubmit,handleCancel,editMode,handleSave,noteRef,markTodoComplete,deleteTodoItem}=data
+    const [todoSelectedForEdit,setToDoSelectedForEdit]=useState({})
+    const [todoEdited,setToDoEdited]=useState('')
+    let {note,noteList,handleNoteModal,handleDrafts,handleNoteChange,handleSubmit,handleCancel,editMode,handleSave,noteRef,markTodoComplete,deleteTodoItem,setNote}=data
     let {title,description,category,customCat,imp,altTitle,todoList}=note
     let uiData=useContext(uicontext)
-    let {handleModal}=uiData
+    let {handleModal,toggleToDoEditMode,todoEditMode}=uiData
     let CreateButtonCond=false
     if(title || description || (category=='todo' && todoList.length>0)){
       CreateButtonCond=true
@@ -39,7 +42,42 @@ const Noteform = () => {
      }
   }
  
+const commitTodoEdit = () => {
+  if(!todoEditMode || !todoSelectedForEdit?.id) return
 
+  const trimmedText = todoEdited.trim()
+  if(trimmedText && trimmedText !== todoSelectedForEdit.text){
+    const newTodoList = todoList.map((v)=>{
+      if(v.id===todoSelectedForEdit.id){
+        return {...v,text:trimmedText}
+      }
+      return v
+    })
+    setNote({...note,todoList:newTodoList})
+  }
+
+  toggleToDoEditMode(false)
+  setTodoItem('')
+  setToDoEdited('')
+  setToDoSelectedForEdit({})
+}
+
+const handleTodoItemSave=(todoId,todoEdited,noteId='')=>{
+  let newTodoList=todoList.map((v)=>{
+    if(v.id==todoId)
+    {
+      return {...v,text:todoEdited}
+    }
+    return v
+  })
+  console.log(newTodoList)
+
+  setNote({...note,todoList:newTodoList})
+  toggleToDoEditMode()
+  setTodoItem('')
+  setToDoEdited('')
+  setToDoSelectedForEdit({})
+}
 // Update the ref every time the note changes
 
   return createPortal(
@@ -52,10 +90,10 @@ const Noteform = () => {
         <form>
           <div className='inputFirstRow'>
             
-            <input type="text" name="title" value={title} onChange={handleNoteChange} placeholder={`${editMode?altTitle:'title'}`}/>
+            <input type="text" name="title" value={title} onChange={handleNoteChange} onFocus={commitTodoEdit} placeholder={`${editMode?altTitle:'title'}`}/>
            <div className='selectAndImp' >
             <div className='selectCategory' >
-            <select name='category' title="categories" value={category} onChange={handleNoteChange}
+            <select name='category' title="categories" value={category} onChange={handleNoteChange} onFocus={commitTodoEdit}
             className={category=="custom"?'customSelect':''}>
                 <option value="">Select</option>
                 <option value="personal">Personal</option>
@@ -65,7 +103,7 @@ const Noteform = () => {
                 <option value="todo">To-Do</option>   
                 <option value="custom">Custom</option>
             </select>
-            {category=="custom" &&<div className='customCategory' ><input type="text" value={customCat} onChange={handleNoteChange} name="customCat"/></div>} 
+            {category=="custom" &&<div className='customCategory' ><input type="text" value={customCat} onChange={handleNoteChange} onFocus={commitTodoEdit} name="customCat"/></div>} 
               </div>
             <div className='imp' >
               <label >
@@ -79,7 +117,7 @@ const Noteform = () => {
                                     }} 
                             />
                       } 
-                <input type="checkbox" onChange={handleNoteChange} name='imp' value={imp} />
+                <input type="checkbox" onChange={(e)=>{commitTodoEdit();handleNoteChange(e)}} name='imp' value={imp} />
               </label>
             </div>
             </div>
@@ -90,9 +128,9 @@ const Noteform = () => {
            <div className='todoHeader'>
              <input type='text' name='todoItem' value={todoItem} 
               onChange={(e)=>setTodoItem(e.target.value)}
-              placeholder='Enter todo item'/>
+              placeholder='Enter todo item' onFocus={commitTodoEdit}/>
               <button  disabled={todoItem.trim()==''} className={`${todoItem.trim()==''?'disable':''}`}
-              onClick={(e)=>{e.preventDefault(); 
+              onClick={(e)=>{e.preventDefault(); commitTodoEdit();
                   handleNoteChange({target:{name:'todoItem',value:todoItem}});
                   setTodoItem('');}}
                   ><IoMdAdd /></button>
@@ -100,12 +138,31 @@ const Noteform = () => {
            <div className='todoItems'>
               {todoList.length>0 ? 
               todoList.map((v)=><div className='todoItem' key={v.id}>
-                <div className={`todoText ${v.completed?'line-through':''}`}>{v.text}</div>
+                {todoEditMode && todoSelectedForEdit.id==v.id ? <input type='text' value={todoEdited}  
+                  onChange={(e)=>setToDoEdited(e.target.value)}
+                className='todoTextEditMode'/>
+                :<div className={`todoText ${v.completed?'line-through':''}`}>{v.text}</div>  
+                 }
+                
+               
                 <div className='todoActions'>
-                  {editMode ?<span onClick={()=>markTodoComplete(v.id)}>
+                  {editMode &&<span onClick={()=>{ commitTodoEdit(); markTodoComplete(v.id)}}>
                   {v.completed ? <MdCheckCircle title='uncheck'/> : <MdRadioButtonUnchecked title='mark as complete'/>}
-                  </span>:
-                  <span><MdOutlineEdit /></span>}
+                  </span>}
+                  
+                  <span onClick={() => {
+                    if(todoEditMode && todoSelectedForEdit?.id && todoSelectedForEdit.id !== v.id){
+                      commitTodoEdit()
+                    }
+                    if(!todoEditMode || todoSelectedForEdit?.id !== v.id){
+                      setToDoEdited(v.text)
+                      setToDoSelectedForEdit(v)
+                      toggleToDoEditMode(true)
+                    }
+                  }}>
+                    {todoEditMode && v.id==todoSelectedForEdit.id ? <FaSave disabled={todoEdited.trim()===''}
+                    onClick={(e)=>{e.stopPropagation(); handleTodoItemSave(v.id,todoEdited,note.id)}}/> : <MdOutlineEdit />}
+                  </span>
                  
                   <span title='delete' onClick={()=>deleteTodoItem(v.id)}>
                      <RiDeleteBin6Line/>
@@ -116,7 +173,7 @@ const Noteform = () => {
            </div>
 
            </div>
-           </>: <textarea name="description"  value={description} onChange={handleNoteChange} id="" placeholder='write your notes here'></textarea>
+           </>: <textarea name="description"  value={description} onChange={handleNoteChange} onFocus={commitTodoEdit} id="" placeholder='write your notes here'></textarea>
 }
  
           <div className='btns'>

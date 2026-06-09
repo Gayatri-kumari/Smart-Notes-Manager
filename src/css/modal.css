@@ -190,19 +190,26 @@
         }
     }
     .todoItems{
-        @apply w-full   mt-5  h-50 overflow-auto  flex flex-col  ;
+        @apply w-full  mt-5  h-50 overflow-auto  flex flex-col  ;
         p{
             @apply text-center  text-gray-400;
         }
         .todoItem{
-            @apply flex gap-2 p-2 px-3  items-center 
+            @apply flex gap-2  p-2 px-3  items-center 
             border-b border-gray-700/50;
+            .todoTextEditMode{
+                @apply border-none ;
+            }
             .todoText{
-                @apply flex-1;
+                @apply flex-1 border-none;
                 &.line-through{
                     @apply line-through opacity-40;
                 }
+                &.todoReadOnlyMode{
+                    @apply  bg-transparent  outline-none focus:outline-none focus:ring-0;
+                }
             }
+            
             .todoActions{
                 @apply flex gap-3 text-lg  text-gray-400;
                  span:hover{

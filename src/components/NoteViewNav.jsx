@@ -119,7 +119,7 @@ const NoteViewNav = (props) => {
                                  }} 
                               />}</span>
                 </div>
-                {note.todoList.length>0 ? <div className='todoPreview'>
+                {note.category=='todo' ? <div className='todoPreview'>
                         {
                         note.todoList.slice(0,2).map((v)=> (
                             <div key={v.id} className='todoPreviewItem'>
